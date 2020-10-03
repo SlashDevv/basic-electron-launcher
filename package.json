@@ -21,7 +21,7 @@
     "minecraft-launcher-core": "^3.14.1"
   },
   "build": {
-    "appId": "fr.fir3rl.mclclauncher",
+    "appId": "fr.slashdev.launchermc",
     "icon": "asset/logo.ico"
   }
 }
