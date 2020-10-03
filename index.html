@@ -17,60 +17,6 @@
         </div>
     </div>
     <script>
-        const ipc = require("electron").ipcRenderer
-        const titlebar = require("custom-electron-titlebar")
-        const path = require("path")
-
-        const bar = new titlebar.Titlebar({
-            backgroundColor: titlebar.Color.fromHex('#444'),
-            titleHorizontalAlignment: "center",
-            icon: "./asset/logo.ico",
-            menu: null
-        })
-        bar.updateTitle("Launcher MC")
-
-        var playbtn = document.getElementById("play")
-
-        playbtn.addEventListener("click", e => {
-            let username = document.getElementById("username").value
-            let pass = document.getElementById("password").value
-
-            if (username && pass) {
-                ipc.send("login", { u: username, p: pass })
-                playbtn.disabled = true;
-            }
-        })
-
-        ipc.on("err", (event, data) => {
-            iziToast.error({
-                title: 'Erreur !',
-                message: 'Mauvais identifiants / Trop de requêtes !',
-            });
-            playbtn.disabled = false;
-        })
-
-        ipc.on("done", () => {
-            iziToast.success({
-                title: 'Bienvenue !',
-                message: 'Vous vous êtes bien connecté !',
-            });
-        })
-
-        ipc.on("progression", (event, data) => {
-            if (data.type === 'forge') {
-                playbtn.innerHTML = `Initialisation de forge (${data.task} / ${data.total})`
-            } else if (data.type === 'classes') {
-                playbtn.innerHTML = `Installation des classes (${data.task} / ${data.total})`
-            } else if (data.type === 'assets' || data.type === 'assets-copy') {
-                playbtn.innerHTML = `Installation des assets (${data.task} / ${data.total})`
-            } else if (data.type === 'client-package') {
-                playbtn.innerHTML = `Installation des classes (${data.task} / ${data.total})`
-            } else if (data.type === 'natives') {
-                playbtn.innerHTML = `Vérification des natives (${data.task} / ${data.total})`
-            } else if (data.type === 'librairies') {
-                playbtn.innerHTML = `MAJ des librairies (${data.task} / ${data.total})`
-            }
-        })
     </script>
     <style>
         @import url(https://fonts.googleapis.com/css?family=Roboto:300);
